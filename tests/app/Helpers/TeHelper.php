@@ -19,11 +19,11 @@ class TeHelper
 
     public static function getUsermeta($user_id, $key = false)
     {
-        return $user = UserMeta::where('user_id', $user_id)->first()->$key;
-        if (!$key)
-            return $user->usermeta()->get()->all();
+        $user = UserMeta::where('user_id', $user_id)->first();
+        if (!$user->$key)
+            return $user->usermeta()->get();
         else {
-            $meta = $user->usermeta()->where('key', '=', $key)->get()->first();
+            $meta = $user->usermeta()->where('key', $key)->first();
             if ($meta)
                 return $meta->value;
             else return '';
